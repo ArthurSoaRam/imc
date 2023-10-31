@@ -4,11 +4,13 @@ void main() {
   runApp(MaterialApp(
     title: "Calculadora de IMC",
     theme: ThemeData.dark(),
-    home: Home(),
+    home: const Home(),
   ));
 }
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   State<StatefulWidget> createState() => _HomeState();
 }
@@ -16,7 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   TextEditingController pesoController = TextEditingController();
   TextEditingController alturaController = TextEditingController();
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _textInfo = "";
 
   void _calcular() {
@@ -25,9 +27,9 @@ class _HomeState extends State<Home> {
       double altura = double.parse(alturaController.text) / 100;
       double imc = peso / (altura * altura);
       //debugPrint("$imc");
-      if (imc < 18.6)
+      if (imc < 18.6) {
         _textInfo = "Abaixo do peso (${imc.toStringAsPrecision(4)})";
-      else if (imc >= 18.6 && imc < 24.9)
+      } else if (imc >= 18.6 && imc < 24.9)
         _textInfo = "Peso ideal (${imc.toStringAsPrecision(4)})";
       else if (imc >= 24.9 && imc < 29.9)
         _textInfo = "Levemente acima do peso (${imc.toStringAsPrecision(4)})";
@@ -44,7 +46,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calculadora de IMC"),
+        title: const Text("Calculadora de IMC"),
         centerTitle: true,
       ),
       body: Padding(
@@ -57,25 +59,25 @@ class _HomeState extends State<Home> {
               TextFormField(
                 controller: pesoController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Peso (kg)",
                 ),
               ),
               TextFormField(
                 controller: alturaController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Altura (cm)",
                 ),
               ),
               ElevatedButton(
                 onPressed: _calcular,
-                child: Text("Calcular IMC"),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
+                  backgroundColor: Colors.purple,
                 ),
+                child: const Text("Calcular IMC"),
               ),
-              Text(_textInfo, style: TextStyle(fontSize: 20.0)),
+              Text(_textInfo, style: const TextStyle(fontSize: 20.0)),
             ],
           ),
         ),
